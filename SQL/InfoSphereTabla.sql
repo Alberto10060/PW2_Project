@@ -18,8 +18,8 @@ CREATE TABLE usuario (
 );
 
 CREATE TABLE post (
-post_Id INT UNIQUE AUTO_INCREMENT COMMENT 'Identificacion numerica para los cursos',
-post_Nombre VARCHAR(255) COMMENT 'Nombre del curso',
+post_Id INT UNIQUE AUTO_INCREMENT COMMENT 'Identificacion numerica para los posts',
+post_Nombre VARCHAR(255) COMMENT 'Nombre del post',
 post_Descripcion VARCHAR(255) COMMENT 'Descripcion general del curso',
 post_tipo BIT COMMENT 'Dictamina si es compra completa 0 o por nivel 1',
 post_MeGusta INT NULL DEFAULT 0 COMMENT '"MeGustas" que le han dado los usuarios al post ',
@@ -30,4 +30,15 @@ post_UsuarioId INT COMMENT 'FK Id de usuario que creo el curso',
 post_CategoriaId int COMMENT 'FK Categoria del curso',
 FOREIGN KEY (post_UsuarioId) REFERENCES usuario(Usuario_Id),
 PRIMARY KEY (post_Id)
+);
+
+
+CREATE TABLE mensaje (
+mensaje_id int UNIQUE AUTO_INCREMENT COMMENT 'Identificacion numerica para mensajes',
+mensaje_texto text comment 'mensaje',
+mensaje_recibirid int comment 'id de quien recibe el mensaje', 
+mensaje_mandadoid int comment 'id de quien manda el mensaje',
+FOREIGN KEY (mensaje_recibirid) REFERENCES usuario(Usuario_Id),
+FOREIGN KEY (mensaje_mandadoid) REFERENCES usuario(Usuario_Id),
+PRIMARY KEY (mensaje_id)
 );
