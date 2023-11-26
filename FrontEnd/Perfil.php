@@ -3,8 +3,8 @@
 
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="PagPrinc.css">
-    <link rel="stylesheet" href="ProfileStyle.css">
+    <link rel="stylesheet" href="styles/PagPrinc.css">
+    <link rel="stylesheet" href="styles/ProfileStyle.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>InfoSphere - Profile</title>
 </head>
@@ -17,17 +17,17 @@
                 <a href="#"> <ion-icon name="notifications-outline"></ion-icon></a>
                 <a href="#"><ion-icon name="flame-outline"></ion-icon></a>
                 <a href="#"><ion-icon name="chatbox-outline"></ion-icon> </a>
-                <a href="Pag_Principal.html" class="active"><ion-icon name="home-outline"></ion-icon></a>
+                <a href="Pag_Principal.php" class="active"><ion-icon name="home-outline"></ion-icon></a>
             </div>
             <div class="search-bar">
                 <i><ion-icon name="search-outline"></ion-icon></i>
                 <input type="text" placeholder="Buscar" class="search-bar-input">
             </div>
-            <div class="user">
+            <div class="user"> 
                 <div class="user-img-wrapper">
                     <img src="user-default.jpg" width="40">
                 </div>
-                <a href="Perfil.html" class="user-link">Juan Perez</a>
+                <a href="Perfil.php" class="user-link">Juan Perez</a>
                 <ion-icon name="chevron-down-outline"></ion-icon>
             </div>
         </nav>

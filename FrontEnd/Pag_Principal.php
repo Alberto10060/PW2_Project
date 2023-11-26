@@ -1,13 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
+<?php
+include 'Connection.php';
 
+?>
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="PagPrinc.css">
+    <link rel="stylesheet" href="styles/PagPrinc.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>InfoSphere - Home</title>
 </head>
-
 <body>
     <!---INICIO NAVBAR-->
     <section class="feeds-page">
@@ -16,7 +18,7 @@
                 <a href="#"> <ion-icon name="notifications-outline"></ion-icon></a>
                 <a href="#"><ion-icon name="flame-outline"></ion-icon></a>
                 <a href="#"><ion-icon name="chatbox-outline"></ion-icon> </a>
-                <a href="Pag_Principal.html" class="active"><ion-icon name="home-outline"></ion-icon></a>
+                <a href="Pag_Principal.php" class="active"><ion-icon name="home-outline"></ion-icon></a>
             </div>
             <div class="search-bar">
                 <i><ion-icon name="search-outline"></ion-icon></i>
@@ -24,9 +26,9 @@
             </div>
             <div class="user">
                 <div class="user-img-wrapper">
-                    <img src="user-default.jpg" width="40">
+                    <img src="photos/user-default.jpg" width="40">
                 </div>
-                <a href="Perfil.html" class="user-link">Juan Perez</a>
+                <a href="Perfil.php" class="user-link">Juan Perez</a>
                 <ion-icon name="chevron-down-outline"></ion-icon>
             </div>
         </nav>
@@ -41,7 +43,7 @@
                 </div>
                 <div class="div header-post">
                     <div class="header-img-wrapper">
-                        <img src="user-default.jpg">
+                        <img src="photos/user-default.jpg">
                     </div>
                     <input type="text" placeholder="¿Que esta sucediendo?">
                     <i><ion-icon name="image-outline"></ion-icon></i>
