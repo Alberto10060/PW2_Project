@@ -10,10 +10,10 @@
     $Email = $_POST["Email"];
     $SelectGeneroOption = $_POST["SelectGeneroOption"];
     $DateBirthValue = $_POST["DateBirthValue"];
-    $SelectRolOption = $_POST["SelectRolOption"];
 
     // Llamar al stored procedure Usuarios_CRUD para agregar un nuevo usuario
-    $query = "CALL SpUsuario(NULL, '$username', '$Name', '$LastNamePattern', '$LastNameMatern', '$SelectGeneroOption', '$DateBirthValue', '', '$Email', '$password', '$SelectRolOption', 'Activo', 'INSERT')";
+    
+    $query = "CALL sp_usuario(NULL, '$username', '$Name', '$LastNamePattern', '$LastNameMatern', '$SelectGeneroOption', '$DateBirthValue', '', '$Email', '$password', 0, 0, 'INSERT')";
 
     if (mysqli_query($mysqli, $query)) {
         echo "1";

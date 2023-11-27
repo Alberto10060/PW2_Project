@@ -5,6 +5,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="styles/Registro.css">
+    <link rel="stylesheet" href="styles/font-awesome_6.4.0_css_all.min.css">
+    <script src="../Libs/jquery/jquery-3.6.3.min.js"></script>
+    <script src="scripts/sweetalert.js"></script>
     <title>Registro</title>
 </head>
 
@@ -48,7 +51,7 @@
                     <div class="inputbox">
                         <ion-icon name="male-female-outline"></ion-icon>
                         <label for="" style="top: -5px;">Genero</label>
-                        <select id="sexo" required>
+                        <select id="genero" required>
                             <option value="Masculino">Masculino</option>
                             <option value="Femenino">Femenino</option>
                         </select>
@@ -61,7 +64,7 @@
                         <label for="fechaNacimiento">Fecha de Nacimiento</label>
                     </div>
 
-                    <button>Registrar Cuenta</button>
+                    <button type="button" onclick="RegistrarUser();">Registrarse</button>
                     <div class="register">
                         <p>¿Ya tienes una cuenta? <a href="Index.php">Login</a></p>
                     </div>
@@ -88,12 +91,10 @@
             var LastNamePattern = $("#apellidoP").val();
             var LastNameMatern = $("#apellidoM").val();
             var Email = $("#correo").val();
-            var SelectGenero = document.getElementById('sexo');
+            var SelectGenero = document.getElementById('genero');
             var SelectGeneroOption = SelectGenero.options[SelectGenero.selectedIndex].textContent;
             var DateBirth = document.getElementById('fechaNacimiento');
             var DateBirthValue = DateBirth.value;
-            var SelectRol = document.getElementById('rol');
-            var SelectRolOption = SelectRol.options[SelectRol.selectedIndex].textContent;
 
             if (username == "") {
                 valinput += "Ingrese su nombre de usuario";
@@ -199,12 +200,10 @@
                         LastNameMatern: LastNameMatern,
                         Email: Email,
                         SelectGeneroOption: SelectGeneroOption,
-                        DateBirthValue: DateBirthValue,
-                        SelectRolOption: SelectRolOption
+                        DateBirthValue: DateBirthValue
                     },
                     cache: false,
                     success: function (data) {
-                        alert(data);
                         if (data == '1') //data == '1'
                         {
                             Swal.fire({
@@ -214,7 +213,7 @@
                                 showConfirmButton: false,
                                 timer: 3000
                             }).then(function () {
-                                window.location.href = "Login.php";
+                                window.location.href = "index.php";
                             });
                         }
                         else {

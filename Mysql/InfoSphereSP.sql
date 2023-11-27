@@ -44,6 +44,38 @@ BEGIN
     END IF;
 END //
 DELIMITER ;
+CALL spInicioSesion('juan@email.com', 'Alberto106!', @id_usuario, @nombre_usuario, @mensaje);
+-- DROP PROCEDURE `spInicioSesion`;
+DELIMITER //
+CREATE PROCEDURE spInicioSesion(
+   IN p_usuario_email VARCHAR(100),
+   IN p_usuario_contrasena VARCHAR(255),
+   OUT p_usuario_id INT,
+   OUT p_nombre_usuario_res VARCHAR(100),
+   OUT p_mensaje VARCHAR(100)
+ )
+ BEGIN
+   DECLARE v_usuario_id INT;
+   DECLARE v_usuario_nombre VARCHAR(100);
+
+   -- Verificar si el nombre de usuario y la contraseña son válidos
+   SELECT usuario_id, usuario_nombre INTO v_usuario_id, v_usuario_nombre
+   FROM Usuario
+   WHERE usuario_email = p_usuario_email AND usuario_contrasena = p_usuario_contrasena;
+
+   -- Verificar si se encontró un usuario con las credenciales proporcionadas
+   IF v_usuario_id IS NOT NULL THEN
+     SET p_usuario_id = v_usuario_id;
+     SET p_nombre_usuario_res = v_usuario_nombre;
+     SET p_mensaje = 'Inicio de sesión exitoso';
+   ELSE
+     SET p_usuario_id = NULL;
+     SET p_nombre_usuario_res = NULL;
+     SET p_mensaje = 'Usuario o contraseña incorrectos';
+   END IF;
+ END //
+DELIMITER ;
+
 -- drop procedure obtener_posts_seguidos;
 DELIMITER //
 
@@ -108,4 +140,25 @@ BEGIN
 END //
 
 DELIMITER ;
-
+-- drop procedure sp_mensaje;
+DELIMITER //
+ 
+CREATE PROCEDURE sp_mensaje (
+    IN p_mensaje_id INT,
+    IN p_mensaje_texto VARCHAR(255),
+    IN p_mensaje_recibirid INT,
+    IN p_mensaje_mandadoid INT,
+    IN p_operacion VARCHAR(30)
+)
+BEGIN
+    IF p_operacion = 'INSERT' THEN
+        INSERT INTO mensaje (mensaje_texto, mensaje_recibirid, mensaje_mandadoid)
+        VALUES (mensaje_texto, mensaje_recibirid, mensaje_mandadoid);
+	ELSEIF p_operacion = 'SELECT_ALL_USER' THEN
+        SELECT mensaje_id, mensaje_texto, mensaje_recibirid, mensaje_mandadoid 
+        FROM mensaje
+        WHERE (mensaje_recibirid = p_mensaje_recibirid OR mensaje_mandadoid = p_mensaje_mandadoid) OR (mensaje_recibirid = p_mensaje_mandadoid OR mensaje_mandadoid = p_mensaje_recibirid) order by mensaje_id desc;
+    END IF;
+END //
+ 
+DELIMITER ;

@@ -97,7 +97,7 @@
                             Veritatis ipsam similique quam nemo ex maiores quibusdam dolor autem aliquam temporibus.
                         </p>
                         <div class="post-img">
-                            <img src="IMG_Post1.jpg">
+                            <img src="../photos/IMG_Post1.jpg">
                         </div>
                         <div class="post-icons">
                             <i><ion-icon name="chatbubble-outline"></ion-icon></i>
