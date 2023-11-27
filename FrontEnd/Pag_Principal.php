@@ -1,9 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-<?php
-include 'Connection.php';
 
-?>
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="styles/PagPrinc.css">

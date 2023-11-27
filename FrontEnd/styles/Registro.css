@@ -62,8 +62,24 @@ h5{
     pointer-events: none;
     transition: .5s;
 }
+.inputbox select {
+    width: 90%;
+    height: 50px;
+    background: transparent;
+    border: none;
+    outline: none;
+    font-size: 1em;
+    padding:0 35px 0 5px;
+}
 
-
+.inputbox select:focus {
+    outline: none;
+    border-color: #007bff;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+.no-effect ~ label {
+    top: -5px;
+}
 input:focus ~ label,
 input:valid ~ label{
 top: -5px;

@@ -1,9 +1,14 @@
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="styles/index.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles/font-awesome_6.4.0_css_all.min.css">
+    <script src="../Libs/jquery/jquery-3.6.3.min.js"></script>
+    <script src="scripts/sweetalert.js"></script>
     <title>Login</title>
 </head>
 <body>
@@ -15,15 +20,15 @@
                    <div class="inputbox"> <img src="../photos/Logo InfoSphere Blanco_Mesa de trabajo 1.png" alt=""></div> 
                     <div class="inputbox">
                         <ion-icon name="mail-outline"></ion-icon>
-                        <input type="email" name="" id="correo" required>
+                        <input type="email" name="correo" id="correo" required>
                         <label for="">Email</label>
                     </div>
                     <div class="inputbox">
                         <ion-icon name="lock-closed-outline"></ion-icon>
-                        <input type="password" name="" id="contrasena" required>
+                        <input type="password" name="contrasena" id="contrasena" required>
                         <label for="">Password</label>
                     </div>
-                    <button>Log In</button>
+                    <button type="button" id="LoginButton" onclick="IniciarUser();">Iniciar sesión</button>
                     <div class="register">
                         <p>¿Todavia no tienes cuenta? <a href="Registro.php">Registrarse</a></p>
                     </div>
@@ -92,46 +97,11 @@
                             Swal.fire({
                                 position: 'center',
                                 icon: 'success',
-                                title: 'Bienvenido administrador.',
+                                title: '¡Bienvenido!',
                                 showConfirmButton: false,
                                 timer: 3000
                             }).then(function () {
-                                window.location.href = "index.html";
-                            });
-                        }
-                        else if (data == '3') //data == '1'
-                        {
-                            Swal.fire({
-                                position: 'center',
-                                icon: 'success',
-                                title: 'Bienvenido cliente.',
-                                showConfirmButton: false,
-                                timer: 3000
-                            }).then(function () {
-                                window.location.href = "index.html";
-                            });
-                        }
-                        else if (data == '2') //data == '1'
-                        {
-                            Swal.fire({
-                                position: 'center',
-                                icon: 'success',
-                                title: 'Bienvenido vendedor.',
-                                showConfirmButton: false,
-                                timer: 3000
-                            }).then(function () {
-                                window.location.href = "index.html";
-                            });
-                        }else if (data == '4') //data == '1'
-                        {
-                            Swal.fire({
-                                position: 'center',
-                                icon: 'success',
-                                title: 'Bienvenido super administrador.',
-                                showConfirmButton: false,
-                                timer: 3000
-                            }).then(function () {
-                                window.location.href = "index.html";
+                                window.location.href = "index.php";
                             });
                         }
                         else {

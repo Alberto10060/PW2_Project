@@ -1,7 +1,7 @@
 <?php
 
     $server = "localhost";
-    $database = "MaxiTienda";
+    $database = "BDINFOSPHERE2023";
     $username = "root";
     $password = "root";
     $mysqli = @mysqli_connect($server, $username, $password, $database);
