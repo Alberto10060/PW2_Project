@@ -50,6 +50,9 @@ if ($all_posts && $all_posts->num_rows > 0) {
     <link rel="stylesheet" href="styles/PagPrinc.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>InfoSphere - Home</title>
+    <link rel="stylesheet" href="styles/font-awesome_6.4.0_css_all.min.css">
+    <script src="../Libs/jquery/jquery-3.6.3.min.js"></script>
+    <script src="scripts/sweetalert.js"></script>
 </head>
 
 <body>
@@ -71,7 +74,8 @@ if ($all_posts && $all_posts->num_rows > 0) {
                     <img src="../photos/user-default.jpg" width="40">
                 </div>
                 <a href="Perfil.php" class="user-link">Juan Perez</a>
-                <ion-icon name="chevron-down-outline"></ion-icon>
+                <a href="#" class="user-link" onclick="CerrarSesion();">| Cerrar sesión</a>
+                <!-- <ion-icon name="chevron-down-outline"></ion-icon> -->
             </div>
         </nav>
         <!---FIN NAVBAR-->
@@ -102,7 +106,7 @@ if ($all_posts && $all_posts->num_rows > 0) {
 
         <div class="all-posts">
 
-            <div class="post">
+        <div class="post">
                 <?php
                 foreach ($Allposts as $allposts) {
                     ?>
@@ -116,9 +120,11 @@ if ($all_posts && $all_posts->num_rows > 0) {
                                     Juan Perez
                                 </h4>
                                 <i><ion-icon name="checkmark-circle-outline"></ion-icon></i>
-                                <span>@juanperez10 15m</span>
+                                <span><?php echo $allposts["User_Post"];?> 
+                                 <?php echo $allposts["Fec_Posts"]; ?> </span>
                             </div>
                             <p class="post-text">
+                                <h4> <?php echo $allposts["nombre_Posts"];?> </h4>
                                 <?php echo $allposts["descripcion_Posts"]; ?>
                             </p>
                             <div class="post-img">
@@ -172,19 +178,11 @@ if ($all_posts && $all_posts->num_rows > 0) {
                 </div>
                 <button type="button" class="follow-btn">Seguir</button>
             </div>
-            <div class="follow-link"><a href="#">Mostrar mas</a></div>
-            <footer class="follow-footers">
-                <ul>
-                    <li><a href="#">Condiciones</a></li>
-                    <li><a href="#">Politicas de Priv</a></li>
-                    <li><a href="#">Cookies</a></li>
-                </ul>
-            </footer>
         </div>
         <!---FIN FOLLOW-->
         <!---INICIO FOOTER-->
         <footer class="pie-pagina">
-            
+
 
 
             <div class="grupo2">
@@ -195,6 +193,7 @@ if ($all_posts && $all_posts->num_rows > 0) {
     </section>
     <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+    <script src="scripts/pag_principal.js"></script>
 </body>
 
 </html>

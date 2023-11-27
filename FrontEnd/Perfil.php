@@ -7,6 +7,9 @@
     <link rel="stylesheet" href="styles/ProfileStyle.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>InfoSphere - Profile</title>
+    <link rel="stylesheet" href="styles/font-awesome_6.4.0_css_all.min.css">
+    <script src="../Libs/jquery/jquery-3.6.3.min.js"></script>
+    <script src="scripts/sweetalert.js"></script>
 </head>
 
 <body>
@@ -28,7 +31,7 @@
                     <img src="user-default.jpg" width="40">
                 </div>
                 <a href="Perfil.php" class="user-link">Juan Perez</a>
-                <ion-icon name="chevron-down-outline"></ion-icon>
+                <a href="#" class="user-link" onclick="CerrarSesion();">| Cerrar sesión</a>
             </div>
         </nav>
         <!---FIN NAVBAR-->
@@ -244,6 +247,7 @@
     </section>
     <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+    <script src="scripts/perfil.js"></script>
 </body>
 
 </html>
