@@ -1,5 +1,49 @@
 <!DOCTYPE html>
 <html lang="en">
+<?php
+//Recordar las variables de sesion
+session_start();
+include '../BackEnd/Connection.php';
+
+/*Traer Cursos*/
+$post_retrieve = "CALL obtener_posts_seguidos(3);";
+$all_posts = $mysqli->query($post_retrieve);
+
+$Allposts = array();
+
+if ($all_posts && $all_posts->num_rows > 0) {
+
+
+
+    while ($row = $all_posts->fetch_assoc()) {
+        $idPost = $row['post_id'];
+        $nombre_post = $row['post_nombre'];
+        $desc_post = $row['post_descripcion'];
+        $user_post = $row['post_usuarioid'];
+        $img_post = $row['post_imagen'];
+        $date_post = $row['post_fecrea'];
+
+
+
+        $posts = array(
+            'ID_Post' => $idPost,
+            'nombre_Posts' => $nombre_post,
+            'descripcion_Posts' => $desc_post,
+            'User_Post' => $user_post,
+            'imagen_Posts' => $img_post,
+            'Fec_Posts' => $date_post,
+
+        );
+
+        array_push($Allposts, $posts);
+
+
+    }
+
+} else {
+    echo "No se encontraron registros.";
+}
+?>
 
 <head>
     <meta charset="UTF-8">
@@ -7,6 +51,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>InfoSphere - Home</title>
 </head>
+
 <body>
     <!---INICIO NAVBAR-->
     <section class="feeds-page">
@@ -23,7 +68,7 @@
             </div>
             <div class="user">
                 <div class="user-img-wrapper">
-                    <img src="photos/user-default.jpg" width="40">
+                    <img src="../photos/user-default.jpg" width="40">
                 </div>
                 <a href="Perfil.php" class="user-link">Juan Perez</a>
                 <ion-icon name="chevron-down-outline"></ion-icon>
@@ -40,7 +85,7 @@
                 </div>
                 <div class="div header-post">
                     <div class="header-img-wrapper">
-                        <img src="photos/user-default.jpg">
+                        <img src="../photos/user-default.jpg">
                     </div>
                     <input type="text" placeholder="¿Que esta sucediendo?">
                     <i><ion-icon name="image-outline"></ion-icon></i>
@@ -52,89 +97,44 @@
         <!---FIN HEADER-->
 
         <!---INICIO POST-->
+
+
+
         <div class="all-posts">
 
             <div class="post">
-                <div class="post-cover">
-                    <div class="user-avatar">
-                        <img src="user-default.jpg">
+                <?php
+                foreach ($Allposts as $allposts) {
+                    ?>
+                    <div class="post-cover">
+                        <div class="user-avatar">
+                            <img src="../photos/user-default.jpg">
+                        </div>
+                        <div class="post-content">
+                            <div class="post-user-info">
+                                <h4>
+                                    Juan Perez
+                                </h4>
+                                <i><ion-icon name="checkmark-circle-outline"></ion-icon></i>
+                                <span>@juanperez10 15m</span>
+                            </div>
+                            <p class="post-text">
+                                <?php echo $allposts["descripcion_Posts"]; ?>
+                            </p>
+                            <div class="post-img">
+                                <img src="../photos/IMG_Post1.jpg">
+                            </div>
+                            <div class="post-icons">
+                                <i><ion-icon name="chatbubble-outline"></ion-icon></i>
+                                <i><ion-icon name="navigate-outline"></ion-icon></i>
+                                <i><ion-icon name="heart-outline"></ion-icon></i>
+                                <i><ion-icon name="share-social-outline"></ion-icon></i>
+                            </div>
+                        </div>
                     </div>
-                    <div class="post-content">
-                        <div class="post-user-info">
-                            <h4>Juan Perez</h4>
-                            <i><ion-icon name="checkmark-circle-outline"></ion-icon></i>
-                            <span>@juanperez10 15m</span>
-                        </div>
-                        <p class="post-text">
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                            Veritatis ipsam similique quam nemo ex maiores quibusdam dolor autem aliquam temporibus.
-                        </p>
-                        <div class="post-img">
-                            <img src="IMG_Post1.jpg">
-                        </div>
-                        <div class="post-icons">
-                            <i><ion-icon name="chatbubble-outline"></ion-icon></i>
-                            <i><ion-icon name="navigate-outline"></ion-icon></i>
-                            <i><ion-icon name="heart-outline"></ion-icon></i>
-                            <i><ion-icon name="share-social-outline"></ion-icon></i>
-                        </div>
-                    </div>
-                </div>
+                <?php } ?>
             </div>
-            <div class="post">
-                <div class="post-cover">
-                    <div class="user-avatar">
-                        <img src="user-default.jpg">
-                    </div>
-                    <div class="post-content">
-                        <div class="post-user-info">
-                            <h4>Juan Perez</h4>
-                            <i><ion-icon name="checkmark-circle-outline"></ion-icon></i>
-                            <span>@juanperez10 15m</span>
-                        </div>
-                        <p class="post-text">
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                            Veritatis ipsam similique quam nemo ex maiores quibusdam dolor autem aliquam temporibus.
-                        </p>
-                        <div class="post-img">
-                            <img src="../photos/IMG_Post1.jpg">
-                        </div>
-                        <div class="post-icons">
-                            <i><ion-icon name="chatbubble-outline"></ion-icon></i>
-                            <i><ion-icon name="navigate-outline"></ion-icon></i>
-                            <i><ion-icon name="heart-outline"></ion-icon></i>
-                            <i><ion-icon name="share-social-outline"></ion-icon></i>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="post">
-                <div class="post-cover">
-                    <div class="user-avatar">
-                        <img src="user-default.jpg">
-                    </div>
-                    <div class="post-content">
-                        <div class="post-user-info">
-                            <h4>Juan Perez</h4>
-                            <i><ion-icon name="checkmark-circle-outline"></ion-icon></i>
-                            <span>@juanperez10 15m</span>
-                        </div>
-                        <p class="post-text">
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                            Veritatis ipsam similique quam nemo ex maiores quibusdam dolor autem aliquam temporibus.
-                        </p>
-                        <div class="post-img">
-                            <img src="IMG_Post1.jpg">
-                        </div>
-                        <div class="post-icons">
-                            <i><ion-icon name="chatbubble-outline"></ion-icon></i>
-                            <i><ion-icon name="navigate-outline"></ion-icon></i>
-                            <i><ion-icon name="heart-outline"></ion-icon></i>
-                            <i><ion-icon name="share-social-outline"></ion-icon></i>
-                        </div>
-                    </div>
-                </div>
-            </div>
+
         </div>
 
         <!---FIN POST-->
@@ -144,31 +144,31 @@
             <h3 class="follow-heading">A quien seguir</h3>
             <div class="follow-user">
                 <div class="follow-user-img">
-                    <img src="user-default.jpg">
+                    <img src="../photos/user-default.jpg">
                 </div>
                 <div class="follow-user-info">
-                  <h4>Juanita Perez</h4>
-                  <p>@juanperez10</p>
+                    <h4>Juanita Perez</h4>
+                    <p>@juanperez10</p>
                 </div>
                 <button type="button" class="follow-btn">Seguir</button>
             </div>
             <div class="follow-user">
                 <div class="follow-user-img">
-                    <img src="user-default.jpg">
+                    <img src="../photos/user-default.jpg">
                 </div>
                 <div class="follow-user-info">
-                  <h4>John Perez</h4>
-                  <p>@juanperez10</p>
+                    <h4>John Perez</h4>
+                    <p>@juanperez10</p>
                 </div>
                 <button type="button" class="follow-btn">Seguir</button>
             </div>
             <div class="follow-user">
                 <div class="follow-user-img">
-                    <img src="user-default.jpg">
+                    <img src="../photos/user-default.jpg">
                 </div>
                 <div class="follow-user-info">
-                  <h4>Jorgito Perez</h4>
-                  <p>@juanperez10</p>
+                    <h4>Jorgito Perez</h4>
+                    <p>@juanperez10</p>
                 </div>
                 <button type="button" class="follow-btn">Seguir</button>
             </div>
@@ -184,33 +184,14 @@
         <!---FIN FOLLOW-->
         <!---INICIO FOOTER-->
         <footer class="pie-pagina">
-            <div class="grupo1">
-                <div class="box">
-                    <figure>
-                        <a href="#"><img src="Logo InfoSphere Blanco_Mesa de trabajo 1.png">
-                        </a>
-                    </figure>
-                </div>
-                <div class="box">
-                    <h2>SOBRE NOSOTROS</h2>
-                    <P>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ratione, itaque!</P>
-                    <P>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ratione, itaque!</P>
-                </div>
-                <div class="box">
-                    <h2>SIGUENOS</h2>
-                    <div class="red-social">
-                        <a href="#"><ion-icon name="logo-facebook"></ion-icon></a>
-                        <a href="#"><ion-icon name="logo-instagram"></ion-icon></a>
-                        <a href="#"><ion-icon name="logo-twitter"></ion-icon></a>
-                        <a href="#"><ion-icon name="logo-youtube"></ion-icon></a>
-                    </div>
-                </div>
-            </div>
+            
+
+
             <div class="grupo2">
                 <small>&copy; 2023 <b>InfoSphere</b> - Todos los derechos reservados</small>
             </div>
         </footer>
-         <!---FIN FOOTER-->
+        <!---FIN FOOTER-->
     </section>
     <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
