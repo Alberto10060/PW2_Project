@@ -6,7 +6,9 @@ session_start();
 include '../BackEnd/Connection.php';
 
 /*Traer Cursos*/
-$post_retrieve = "CALL obtener_posts_seguidos(3);";
+//$post_retrieve = "CALL obtener_posts_seguidos(3);";
+$post_retrieve = "CALL sp_post(0, '', '', null, 0, 'SELECT_ALL');";
+//$post_retrieve = "CALL obtener_posts_seguidos(".$_SESSION['id_usuario'].");";
 $all_posts = $mysqli->query($post_retrieve);
 
 $Allposts = array();
@@ -41,7 +43,7 @@ if ($all_posts && $all_posts->num_rows > 0) {
     }
 
 } else {
-    echo "No se encontraron registros.";
+    //echo "No se encontraron registros.";
 }
 ?>
 
@@ -73,7 +75,9 @@ if ($all_posts && $all_posts->num_rows > 0) {
                 <div class="user-img-wrapper">
                     <img src="../photos/user-default.jpg" width="40">
                 </div>
-                <a href="Perfil.php" class="user-link">Juan Perez</a>
+                <a href="Perfil.php" class="user-link">
+                    <?php echo $_SESSION['nombre_usuario'] ?>
+                </a>
                 <a href="#" class="user-link" onclick="CerrarSesion();">| Cerrar sesión</a>
                 <!-- <ion-icon name="chevron-down-outline"></ion-icon> -->
             </div>
@@ -88,13 +92,17 @@ if ($all_posts && $all_posts->num_rows > 0) {
                     <i><ion-icon name="star-outline"></ion-icon></i>
                 </div>
                 <div class="div header-post">
-                    <div class="header-img-wrapper">
-                        <img src="../photos/user-default.jpg">
+                    <div id="postformat">
+
+                        <input type="text" id="posttext" placeholder="¿Que esta sucediendo?">
                     </div>
-                    <input type="text" placeholder="¿Que esta sucediendo?">
-                    <i><ion-icon name="image-outline"></ion-icon></i>
-                    <i><ion-icon name="camera-outline"></ion-icon></i>
-                    <i><ion-icon name="pie-chart-outline"></ion-icon></i>
+                    <a style="" id="addimage"><i><ion-icon name="image-outline"></ion-icon></i></a>
+                    <a id="sendpost" onclick="RegistrarPost();"><i><ion-icon
+                                name="paper-plane-outline"></ion-icon></i></a>
+                    <div class="avatar-container">
+                        <img src="" id="photo-img" class="photo-image">
+                        <input type="file" name="photo" id="photo-input" accept="image/*" style="display: none;">
+                    </div>
                 </div>
             </div>
         </div>
@@ -106,8 +114,11 @@ if ($all_posts && $all_posts->num_rows > 0) {
 
         <div class="all-posts">
 
-        <div class="post">
+            <div class="post">
                 <?php
+                if ($Allposts == NULL) {
+                    echo 'No hay posts';
+                }
                 foreach ($Allposts as $allposts) {
                     ?>
                     <div class="post-cover">
@@ -117,18 +128,33 @@ if ($all_posts && $all_posts->num_rows > 0) {
                         <div class="post-content">
                             <div class="post-user-info">
                                 <h4>
-                                    Juan Perez
+                                    <?php echo $allposts["nombre_Posts"]; ?>
                                 </h4>
                                 <i><ion-icon name="checkmark-circle-outline"></ion-icon></i>
-                                <span><?php echo $allposts["User_Post"];?> 
-                                 <?php echo $allposts["Fec_Posts"]; ?> </span>
+                                <span>
+                                    <?php echo $allposts["User_Post"]; ?>
+                                    <?php echo $allposts["Fec_Posts"]; ?>
+                                </span>
                             </div>
                             <p class="post-text">
-                                <h4> <?php echo $allposts["nombre_Posts"];?> </h4>
-                                <?php echo $allposts["descripcion_Posts"]; ?>
+                            <h4>
+
+                            </h4>
+                            <?php echo $allposts["descripcion_Posts"]; ?>
                             </p>
                             <div class="post-img">
-                                <img src="../photos/IMG_Post1.jpg">
+                                <?php
+                                $img_post = base64_encode($allposts["imagen_Posts"]);
+                                ?>
+                                <?php
+                                if ($img_post != "") {
+                                    ?>
+                                    <img src="data:image/jpeg;base64,<?php echo $img_post; ?>" width="40">
+                                <?php
+                                }
+                                ?>
+
+
                             </div>
                             <div class="post-icons">
                                 <i><ion-icon name="chatbubble-outline"></ion-icon></i>

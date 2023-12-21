@@ -52,8 +52,8 @@
                         <ion-icon name="male-female-outline"></ion-icon>
                         <label for="" style="top: -5px;">Genero</label>
                         <select id="genero" required>
-                            <option value="Masculino">Masculino</option>
-                            <option value="Femenino">Femenino</option>
+                            <option value="1">Masculino</option>
+                            <option value="2">Femenino</option>
                         </select>
 
                     </div>
@@ -92,7 +92,7 @@
             var LastNameMatern = $("#apellidoM").val();
             var Email = $("#correo").val();
             var SelectGenero = document.getElementById('genero');
-            var SelectGeneroOption = SelectGenero.options[SelectGenero.selectedIndex].textContent;
+            var SelectGeneroOption = SelectGenero.options[SelectGenero.selectedIndex].value;
             var DateBirth = document.getElementById('fechaNacimiento');
             var DateBirthValue = DateBirth.value;
 

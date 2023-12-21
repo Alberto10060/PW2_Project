@@ -6,7 +6,7 @@ CREATE PROCEDURE sp_usuario (
     IN p_usuario_nombre VARCHAR(255),
     IN p_usuario_paterno VARCHAR(255),
     IN p_usuario_materno VARCHAR(255),
-    IN p_usuario_genero ENUM('Masculino', 'Femenino', 'Otro'),
+    IN p_usuario_genero tinyint,
     IN p_usuario_fenac DATE,
     IN p_usuario_imagen MEDIUMBLOB,
     IN p_usuario_email VARCHAR(255),
@@ -44,6 +44,8 @@ BEGIN
     END IF;
 END //
 DELIMITER ;
+CALL sp_usuario(1, '', '', '', '', null, null, '', '', '', '', '', 'SELECT');
+
 CALL spInicioSesion('juan@email.com', 'Alberto106!', @id_usuario, @nombre_usuario, @mensaje);
 -- DROP PROCEDURE `spInicioSesion`;
 DELIMITER //
@@ -107,33 +109,31 @@ CREATE PROCEDURE sp_post (
     IN p_post_descripcion VARCHAR(255),
     IN p_post_imagen MEDIUMBLOB,
     IN p_post_usuarioid INT,
-    IN p_post_categoriaId INT,
     IN p_operacion VARCHAR(30)
 )
 BEGIN
     IF p_operacion = 'INSERT' THEN
-        INSERT INTO post (post_nombre, post_descripcion, post_imagen, post_usuarioid, post_categoriaId)
-        VALUES (p_post_nombre, p_post_descripcion, p_post_imagen, p_post_usuarioid, p_post_categoriaId);
+        INSERT INTO post (post_nombre, post_descripcion, post_imagen, post_usuarioid)
+        VALUES (p_post_nombre, p_post_descripcion, p_post_imagen, p_post_usuarioid);
     ELSEIF p_operacion = 'UPDATE' THEN
         UPDATE post
         SET post_nombre = p_post_nombre,
             post_descripcion = p_post_descripcion,
             post_imagen = p_post_imagen,
-            post_usuarioid = p_post_usuarioid,
-            post_categoriaId = p_post_categoriaId
+            post_usuarioid = p_post_usuarioid
         WHERE post_id = p_post_id;
     ELSEIF p_operacion = 'DELETE' THEN
         DELETE FROM post
         WHERE post_id = p_post_id;
     ELSEIF p_operacion = 'SELECT' THEN
-        SELECT post_id, post_nombre, post_descripcion, post_imagen, post_fecrea, post_usuarioid, post_categoriaId
+        SELECT post_id, post_nombre, post_descripcion, post_imagen, post_fecrea, post_usuarioid
         FROM post
         WHERE post_id = p_post_id order by post_id desc;
 	ELSEIF p_operacion = 'SELECT_ALL' THEN
-        SELECT post_id, post_nombre, post_descripcion, post_imagen, post_fecrea, post_usuarioid, post_categoriaId
+        SELECT post_id, post_nombre, post_descripcion, post_imagen, post_fecrea, post_usuarioid
         FROM post order by post_id desc;
 	ELSEIF p_operacion = 'SELECT_ALL_USER' THEN
-        SELECT post_id, post_nombre, post_descripcion, post_imagen, post_fecrea, post_usuarioid, post_categoriaId
+        SELECT post_id, post_nombre, post_descripcion, post_imagen, post_fecrea, post_usuarioid
         FROM post
         WHERE post_usuarioid = post_usuarioid order by post_id desc;
     END IF;
@@ -142,7 +142,6 @@ END //
 DELIMITER ;
 -- drop procedure sp_mensaje;
 DELIMITER //
- 
 CREATE PROCEDURE sp_mensaje (
     IN p_mensaje_id INT,
     IN p_mensaje_texto VARCHAR(255),
@@ -153,7 +152,7 @@ CREATE PROCEDURE sp_mensaje (
 BEGIN
     IF p_operacion = 'INSERT' THEN
         INSERT INTO mensaje (mensaje_texto, mensaje_recibirid, mensaje_mandadoid)
-        VALUES (mensaje_texto, mensaje_recibirid, mensaje_mandadoid);
+        VALUES (p_mensaje_texto, p_mensaje_recibirid, p_mensaje_mandadoid);
 	ELSEIF p_operacion = 'SELECT_ALL_USER' THEN
         SELECT mensaje_id, mensaje_texto, mensaje_recibirid, mensaje_mandadoid 
         FROM mensaje
@@ -161,4 +160,5 @@ BEGIN
     END IF;
 END //
  
+
 DELIMITER ;

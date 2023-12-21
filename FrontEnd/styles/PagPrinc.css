@@ -34,7 +34,16 @@
     align-items: center;
     position: relative;
 }
-
+#sendpost:hover,#addimage:hover{
+    cursor: pointer;
+}
+#postformat{
+    display: flex;
+    flex-direction: column;
+}
+#photo-img{
+    width: 150px !important;
+}
 .search-bar input {
     width: 15rem;
     height: 2.5rem;

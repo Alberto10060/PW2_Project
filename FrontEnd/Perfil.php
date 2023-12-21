@@ -1,3 +1,8 @@
+<?php
+include "Librerias.php";
+session_start();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -28,9 +33,10 @@
             </div>
             <div class="user"> 
                 <div class="user-img-wrapper">
-                    <img src="user-default.jpg" width="40">
+                    <img src="../photos/user-default.jpg" width="40">
                 </div>
-                <a href="Perfil.php" class="user-link">Juan Perez</a>
+                <a href="EditPerfil.php" class="user-link">Editar perfil</a>
+                <a href="Perfil.php" class="user-link">| <?php echo $_SESSION['nombre_usuario'] ?></a>
                 <a href="#" class="user-link" onclick="CerrarSesion();">| Cerrar sesión</a>
             </div>
         </nav>
@@ -38,23 +44,23 @@
 
         <!---INICIO PROFILE-->
         <div class="profile-container">
-            <img src="socialbook_img/images/cover.png" class="cover-img">
+            <img src="../socialbook_img/images/cover.png" class="cover-img">
             <div class="profile-details">
                 <div class="pd-left">
                     <div class="pd-row">
-                        <img src="socialbook_img/images/profile.png" class="pd-img">
+                        <img src="../socialbook_img/images/profile.png" class="pd-img">
                         <div>
                             <h3>Juan Perez</h3>
                             <div class="head-follows">
                                 <a href="#"><p>120 Seguidores</p></a>
-                                <img src="socialbook_img/images/member-1.png">
-                                <img src="socialbook_img/images/member-2.png">
-                                <img src="socialbook_img/images/member-3.png">
+                                <img src="../socialbook_img/images/member-1.png">
+                                <img src="../socialbook_img/images/member-2.png">
+                                <img src="../socialbook_img/images/member-3.png">
                                 
                                 <a href="#"><p>120 Seguidores</p></a>
-                                <img src="socialbook_img/images/member-1.png">
-                                <img src="socialbook_img/images/member-2.png">
-                                <img src="socialbook_img/images/member-3.png">
+                                <img src="../socialbook_img/images/member-1.png">
+                                <img src="../socialbook_img/images/member-2.png">
+                                <img src="../socialbook_img/images/member-3.png">
                             </div>
 
                         </div>
@@ -64,7 +70,7 @@
                     <button type="button">Following</button>
                     <button type="button">Send Message</button>
                     <br>
-                    <a href=""><img src="socialbook_img/images/more.png"></a>
+                    <a href=""><img src="../socialbook_img/images/more.png"></a>
                 </div>
             </div>
 
@@ -89,12 +95,12 @@
                         </div>
 
                         <div class="photo-box">
-                            <div><img src="socialbook_img/images/photo1.png"></div>
-                            <div><img src="socialbook_img/images/photo2.png"></div>
-                            <div><img src="socialbook_img/images/photo3.png"></div>
-                            <div><img src="socialbook_img/images/photo4.png"></div>
-                            <div><img src="socialbook_img/images/photo5.png"></div>
-                            <div><img src="socialbook_img/images/photo6.png"></div>
+                            <div><img src="../socialbook_img/images/photo1.png"></div>
+                            <div><img src="../socialbook_img/images/photo2.png"></div>
+                            <div><img src="../socialbook_img/images/photo3.png"></div>
+                            <div><img src="../socialbook_img/images/photo4.png"></div>
+                            <div><img src="../socialbook_img/images/photo5.png"></div>
+                            <div><img src="../socialbook_img/images/photo6.png"></div>
                         </div>
                     </div>
 
@@ -125,7 +131,7 @@
                         <div class="post">
                             <div class="post-cover">
                                 <div class="user-avatar">
-                                    <img src="user-default.jpg">
+                                    <img src="../photos/user-default.jpg">
                                 </div>
                                 <div class="post-content">
                                     <div class="post-user-info">
@@ -195,7 +201,7 @@
                                         temporibus.
                                     </p>
                                     <div class="post-img">
-                                        <img src="IMG_Post1.jpg">
+                                        <img src="../photos/MG_Post1.jpg">
                                     </div>
                                     <div class="post-icons">
                                         <i><ion-icon name="chatbubble-outline"></ion-icon></i>

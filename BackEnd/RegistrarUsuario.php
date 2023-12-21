@@ -13,7 +13,7 @@
 
     // Llamar al stored procedure Usuarios_CRUD para agregar un nuevo usuario
     
-    $query = "CALL sp_usuario(NULL, '$username', '$Name', '$LastNamePattern', '$LastNameMatern', '$SelectGeneroOption', '$DateBirthValue', '', '$Email', '$password', 0, 0, 'INSERT')";
+    $query = "CALL sp_usuario(NULL, '$username', '$Name', '$LastNamePattern', '$LastNameMatern', $SelectGeneroOption, '$DateBirthValue', '', '$Email', '$password', 0, 0, 'INSERT')";
 
     if (mysqli_query($mysqli, $query)) {
         echo "1";

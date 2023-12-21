@@ -1,5 +1,38 @@
 <!DOCTYPE html>
 <html>
+<?php
+session_start();
+include '../BackEnd/Connection.php';
+$getmessages = "CALL sp_mensaje(1,''," . $_SESSION['id_usuario'] . ",2, 'SELECT_ALL_USER');";
+$all_messages = $mysqli->query($getmessages);
+$Allmessages = array();
+
+if ($all_messages && $all_messages->num_rows > 0) {
+
+	while ($row = $all_messages->fetch_assoc()) {
+		$idMnj = $row['mensaje_id'];
+		$mensaje_Mnj = $row['mensaje_texto'];
+		$recibir_Mnj = $row['mensaje_recibirid'];
+		$mandar_Mnj = $row['mensaje_mandadoid'];
+
+
+
+		$mensajes = array(
+			'Mensaje_ID' => $idMnj,
+			'mensaje_texto' => $mensaje_Mnj,
+			'mensaje_recibirid' => $recibir_Mnj,
+			'mensaje_mandadoid' => $mandar_Mnj
+		);
+
+		array_push($Allmessages, $mensajes);
+
+
+	}
+
+} else {
+	echo "No se encontraron registros.";
+}
+?>
 
 <head>
 	<title>Chat</title>
@@ -8,7 +41,7 @@
 	<!-- Font awesome -->
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css">
 	<!-- CSS -->
-	<link rel="stylesheet" type="text/css" href="StyleChat.css">
+	<link rel="stylesheet" type="text/css" href="../FrontEnd/styles/StyleChat.css">
 
 </head>
 
@@ -126,76 +159,32 @@
 						</div>
 					</div>
 					<div class="card-body msg_card_body">
-						<div class="d-flex justify-content-start mb-4">
-							<div class="img_cont_msg">
-								<img src="https://static.turbosquid.com/Preview/001292/481/WV/_D.jpg"
-									class="rounded-circle user_img_msg">
-							</div>
-							<div class="msg_cotainer">
-								Hi, how are you samim?
-								<span class="msg_time">8:40 AM, Today</span>
-							</div>
-						</div>
-						<div class="d-flex justify-content-end mb-4">
-							<div class="msg_cotainer_send">
-								Hi Khalid i am good tnx how about you?
-								<span class="msg_time_send">8:55 AM, Today</span>
-							</div>
-							<div class="img_cont_msg">
-								<img src="https://avatars.hsoubcdn.com/ed57f9e6329993084a436b89498b6088?s=256"
-									class="rounded-circle user_img_msg">
-							</div>
-						</div>
-						<div class="d-flex justify-content-start mb-4">
-							<div class="img_cont_msg">
-								<img src="https://static.turbosquid.com/Preview/001292/481/WV/_D.jpg"
-									class="rounded-circle user_img_msg">
-							</div>
-							<div class="msg_cotainer">
-								I am good too, thank you for your chat template
-								<span class="msg_time">9:00 AM, Today</span>
-							</div>
-						</div>
-						<div class="d-flex justify-content-end mb-4">
-							<div class="msg_cotainer_send">
-								You are welcome
-								<span class="msg_time_send">9:05 AM, Today</span>
-							</div>
-							<div class="img_cont_msg">
-								<img src="https://avatars.hsoubcdn.com/ed57f9e6329993084a436b89498b6088?s=256"
-									class="rounded-circle user_img_msg">
-							</div>
-						</div>
-						<div class="d-flex justify-content-start mb-4">
-							<div class="img_cont_msg">
-								<img src="https://static.turbosquid.com/Preview/001292/481/WV/_D.jpg"
-									class="rounded-circle user_img_msg">
-							</div>
-							<div class="msg_cotainer">
-								I am looking for your next templates
-								<span class="msg_time">9:07 AM, Today</span>
-							</div>
-						</div>
-						<div class="d-flex justify-content-end mb-4">
-							<div class="msg_cotainer_send">
-								Ok, thank you have a good day
-								<span class="msg_time_send">9:10 AM, Today</span>
-							</div>
-							<div class="img_cont_msg">
-								<img src="https://avatars.hsoubcdn.com/ed57f9e6329993084a436b89498b6088?s=256"
-									class="rounded-circle user_img_msg">
-							</div>
-						</div>
-						<div class="d-flex justify-content-start mb-4">
-							<div class="img_cont_msg">
-								<img src="https://static.turbosquid.com/Preview/001292/481/WV/_D.jpg"
-									class="rounded-circle user_img_msg">
-							</div>
-							<div class="msg_cotainer">
-								Bye, see you
-								<span class="msg_time">9:12 AM, Today</span>
-							</div>
-						</div>
+						<?php foreach ($Allmessages as $allmnj) {
+							if ($allmnj['mensaje_recibirid'] == $_SESSION['id_usuario']) { ?>
+								<div class="d-flex justify-content-start mb-4">
+									<div class="img_cont_msg">
+										<img src="https://static.turbosquid.com/Preview/001292/481/WV/_D.jpg"
+											class="rounded-circle user_img_msg">
+									</div>
+									<div class="msg_cotainer">
+										<?php echo $allmnj['mensaje_texto']; ?>
+										<span class="msg_time">8:40 AM, Today</span>
+									</div>
+								</div>
+							<?php } elseif ($allmnj['mensaje_mandadoid'] == $_SESSION['id_usuario']) { ?>
+								<div class="d-flex justify-content-end mb-4">
+									<div class="msg_cotainer_send">
+									<?php echo $allmnj['mensaje_texto']; ?>
+										<span class="msg_time_send">8:55 AM, Today</span>
+									</div>
+									<div class="img_cont_msg">
+										<img src="https://avatars.hsoubcdn.com/ed57f9e6329993084a436b89498b6088?s=256"
+											class="rounded-circle user_img_msg">
+									</div>
+
+								</div>
+							<?php }
+						} ?>
 					</div>
 					<div class="card-footer">
 						<div class="input-group">
@@ -212,10 +201,10 @@
 				</div>
 			</div>
 		</div>
-		
+
 	</div>
-	<a  href="Index.php"><img src="Img/Logo Athenea blanco.png"></a>
-		<script src="Login.js"></script>
+	<a href="Index.php"><img src="Img/Logo Athenea blanco.png"></a>
+	<script src="Login.js"></script>
 	<!-- JQuery -->
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	<script type="text/javascript" src="scriptsChat.js"></script>

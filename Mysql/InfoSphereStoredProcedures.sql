@@ -146,6 +146,9 @@ BEGIN
  END $#%
 DELIMITER ;
 
+create procedure spPost(
+in SPcat_Nombre varchar(255)
+)
 
 DELIMITER $#%
 create procedure agregarpost
@@ -211,9 +214,6 @@ BEGIN
 SELECT curso_tipo FROM curso WHERE Curso_Id = SPCurso_Id;
  END $#%
 DELIMITER ;
-
-
-
 
 DELIMITER $#%
 create procedure AgregarNivel(in 
